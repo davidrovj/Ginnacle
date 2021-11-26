@@ -41,7 +41,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        color: Color.fromRGBO(243, 246, 251, 1.0),
+        color: letras,//,Color.fromRGBO(243, 246, 251, 1.0),
         width: MediaQuery.of(context).size.width * 1,
         height: MediaQuery.of(context).size.height * 1,
         child:  Center(
@@ -67,9 +67,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       Container(
                         margin: const EdgeInsets.only(bottom: 20.0),
                         child: Text(
-                          'Ginnacle',
+                          'Iniciar Sesión',
                           style: TextStyle(
-                              color: letras,
+                              color: eerieBlack,
                               fontWeight: FontWeight.bold,
                               fontSize: 20),
                         ),
@@ -131,7 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                       });
                                     },
                                     color: Color(0xFFA480F2),
-                                    child: Text('Log In',
+                                    child: Text('Ingresar',
                                         style: TextStyle(
                                             color: Colors.white,
                                             fontWeight: FontWeight.bold,
@@ -151,8 +151,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     setState(() {
                                     });
                                   },
-                                  color: Color(0xFFA480F2),
-                                  child: Text('Register',
+                                  color: Color(0xFFA480F2),//Color(0xFFA480F2),
+                                  child: Text('Registrarse',
                                       style: TextStyle(
                                           color: Colors.white,
                                           fontWeight: FontWeight.bold,

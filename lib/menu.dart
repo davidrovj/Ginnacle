@@ -24,11 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             }, 
               icon: Icon(Icons.menu)
-            )
-          ,
+            ),
           automaticallyImplyLeading: false,
           backgroundColor: letras,
-          title: Text("Ginnacle") ,
+          title: Text("Ginnacle"),
         ),
         body: FoldableSidebarBuilder(
           drawerBackgroundColor: snowWhite,
@@ -50,49 +49,57 @@ class _HomeScreenState extends State<HomeScreen> {
     return Container(
       color: snowWhite,
       child: Padding(
-        padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).size.width * 0.05,),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text("Selecciona una opción",
-              style: TextStyle(fontSize: 25,color: Color(0xFF333333)),
+              style: TextStyle(fontSize: 25,color:eerieBlack),
             ),
             SizedBox(height: 5,),
-            Text("Select ",
-              style: TextStyle(fontSize: 18,color: Colors.white
-              ),
+            // Text("Select ",
+            //   style: TextStyle(fontSize: 18,color: Colors.white
+            //   ),
+            // ),
+            Divider(
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.center,
               children:[
-                Container(
-                  height: 75,
-                  width: 125,
-                  decoration: BoxDecoration(
-                      color: Colors.blue,
-                      shape: BoxShape.rectangle,
-                      border: Border.all(width: 5.0, color: Colors.white),
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                      boxShadow: [
-                        new BoxShadow(
-                          color: Colors.black,
-                          offset: new Offset(0,0),
-                          blurRadius: 2.0,
-                        )
-                      ]),
-                  child:
-                      IconButton(
-                        icon:Icon(Icons.menu, size: 50, color: snowWhite)
-                      )
+                InkWell(
+                  child: Container(
+                        height: 125,
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: snowWhite,
+                          shape: BoxShape.rectangle,
+                          border: Border.all(width: 5.0, color: snowWhite),
+                          
+                          borderRadius: BorderRadius.all(Radius.circular(5)),
+                          
+                          boxShadow: [
+                            new BoxShadow(
+                              color: Colors.black,
+                              offset: new Offset(0,0),
+                              blurRadius: 2.0,
+                            )
+                          ])
+                        ),
+                  onTap: (){
+                    setState(() {
+                      
+                    });
+                  },
                 ),
                 Container(
-                  height: 75,
-                  width: 125,
+                  height: 125,
+                  width: 150,
                   decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: snowWhite,
                       shape: BoxShape.rectangle,
-                      border: Border.all(width: 5.0, color: Colors.white),
+                      border: Border.all(width: 5.0, color: snowWhite),
                       borderRadius: BorderRadius.all(Radius.circular(5)),
                       boxShadow: [
                         new BoxShadow(
@@ -101,12 +108,98 @@ class _HomeScreenState extends State<HomeScreen> {
                           blurRadius: 2.0,
                         )
                       ]),
-                  child:
-                    IconButton(
-                        icon: Icon(Icons.menu, size: 50)
-                      )
-                )  
+                  // child:
+                  //   IconButton(
+                  //       icon: Icon(Icons.menu, size: 50)
+                  //     )
+                )
               ]
+            ),
+            Divider(
+                height: 20
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              
+              children:[
+                Container(
+                  height: 125,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      color: snowWhite,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(width: 5.0, color: snowWhite),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: [
+                        new BoxShadow(
+                          color: Colors.black,
+                          offset: new Offset(0,0),
+                          blurRadius: 2.0,
+                        )
+                      ]),
+                  
+                      // IconButton(
+                      //   icon:Icon(Icons.menu, size: 50, color: snowWhite)
+                      // )
+                ),
+                Container(
+                  height: 125,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      color: snowWhite,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(width: 5.0, color: snowWhite),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: [
+                        new BoxShadow(
+                          color: Colors.black,
+                          offset: new Offset(0,0),
+                          blurRadius: 2.0,
+                        )
+                      ]),
+                  // child:
+                  //   IconButton(
+                  //       icon: Icon(Icons.menu, size: 50)
+                  //     )
+                )
+              ]
+            ),
+            Divider(
+              height: 20
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              
+              children:[
+                Container(
+                  height: 125,
+                  width: 150,
+                  decoration: BoxDecoration(
+                      color: snowWhite,
+                      shape: BoxShape.rectangle,
+                      border: Border.all(width: 5.0, color: snowWhite),
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      boxShadow: [
+                        new BoxShadow(
+                          color: Colors.black,
+                          offset: new Offset(0,0),
+                          blurRadius: 2.0,
+                        )
+                      ]),
+                  
+                      // IconButton(
+                      //   icon:Icon(Icons.menu, size: 50, color: snowWhite)
+                      // )
+                )
+              ]
+            ),
+            Divider(
+              height: 100
+            ),
+            Text("Ginnacle® 2021",
+              style: TextStyle(fontSize: 5,color:eerieBlack),
             )
           ],
         ),
