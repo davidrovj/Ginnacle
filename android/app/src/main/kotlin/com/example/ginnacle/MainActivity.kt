@@ -1,4 +1,4 @@
-package com.example.ginnacle
+package com.rojas.ginnacle
 
 import io.flutter.embedding.android.FlutterActivity
 

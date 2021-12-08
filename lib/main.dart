@@ -1,39 +1,72 @@
+import 'package:firebase_core/firebase_core.dart';
+import "package:firebase_auth/firebase_auth.dart";
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'constants/colors.dart';
 import 'menu.dart';
+import "./AuthService.dart";
+import 'package:flutter/widgets.dart';
+import 'dart:ui' as ui;
 
-
-void main() {
+void main(){
   runApp(MyApp());
 }
 
+// ignore: use_key_in_widget_constructors
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: {
-          '/': (context) => MyHomePage(),
-          '/menu': (context) => HomeScreen()
-        },
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.pink,
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ));
+    return MultiProvider(
+      providers: [
+        Provider<AuthService>(
+          create: (_) => AuthService(FirebaseAuth.instance),
+        ),
+        StreamProvider(
+          create: (context) => context.read<AuthService>().authStateChanges,
+        )
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          initialRoute: '/',
+          routes: {
+            '/': (context) => LogInPage(),
+            '/menu': (context) => HomeScreen()
+          },
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.pink,
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          )),
+    );
+  }
+}
+
+class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({
+    Key key 
+  }) : super (key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseuser = context.watch<User>();
+    
+    if(firebaseuser != null){
+      return HomeScreen();
+    }
+    
+    return LogInPage();
   }
 }
 
 
-class MyHomePage extends StatefulWidget {
+class LogInPage extends StatefulWidget {
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> { 
+class _MyHomePageState extends State<LogInPage> { 
   final _emailInputController = TextEditingController();
   final _passwordInputController = TextEditingController();
 
@@ -126,9 +159,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                       borderRadius: BorderRadius.circular(24),
                                     ),
                                     onPressed: () {
-                                      Navigator.pushNamed(context, '/menu');
-                                      setState(() {
-                                      });
+                                      //Navigator.pushNamed(context, '/menu');
+                                     /*  setState(() {
+                                      }); */
+                                    
+                                    context.read<AuthService>().signIn(
+                                      email:_emailInputController.text.trim(),
+                                      password:_passwordInputController.text.trim()
+                                    );
                                     },
                                     color: Color(0xFFA480F2),
                                     child: Text('Ingresar',
