@@ -24,6 +24,8 @@ class RegisterPatientsState extends State<RegisterPatients> {
   String _pregnant;
   String _diagnostic;
 
+  String _value;
+
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   Widget _buildNumExp() {
@@ -81,27 +83,39 @@ class RegisterPatientsState extends State<RegisterPatients> {
         }
       },
       onSaved: (String value) {
-        _lastNameP = value;
+        _tel = value;
       },
     );
   }
 
   Widget _buildAge() {
     return TextFormField(
-      decoration: InputDecoration(labelText: 'Teléfono'),
+      decoration: InputDecoration(labelText: 'Edad'),
       validator: (String value) {
-        if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(value)) {
-          return 'Inserte un número de teléfono válido';
+        if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(value) ||
+            value.isEmpty) {
+          return 'Inserte una edad válida';
         }
       },
       onSaved: (String value) {
-        _lastNameP = value;
+        _age = value;
       },
     );
   }
 
   Widget _buildWeight() {
-    return TextFormField();
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Peso en kilogramos'),
+      validator: (String value) {
+        if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(value) ||
+            value.isEmpty) {
+          return 'Inserte un peso válido';
+        }
+      },
+      onSaved: (String value) {
+        _weight = value;
+      },
+    );
   }
 
   Widget _buildFum() {
@@ -117,7 +131,18 @@ class RegisterPatientsState extends State<RegisterPatients> {
   }
 
   Widget _buildAlergies() {
-    return TextFormField();
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Peso en kilogramos'),
+      validator: (String value) {
+        if (!RegExp(r'^(?:[+0]9)?[0-9]{10}$').hasMatch(value) ||
+            value.isEmpty) {
+          return 'Inserte un peso válido';
+        }
+      },
+      onSaved: (String value) {
+        _weight = value;
+      },
+    );
   }
 
   Widget _buildPregnant() {
@@ -125,13 +150,23 @@ class RegisterPatientsState extends State<RegisterPatients> {
   }
 
   Widget _buildDiagnostic() {
-    return TextFormField();
+    return TextFormField(
+      decoration: InputDecoration(labelText: 'Peso en kilogramos'),
+      validator: (String value) {
+        if (value.isEmpty) {
+          return 'Campo obligatorio';
+        }
+      },
+      onSaved: (String value) {
+        _weight = value;
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Registrar paciente')),
+      appBar: AppBar(title: Text('Registrar Paciente')),
       body: Container(
           margin: EdgeInsets.all(24),
           child: Form(
@@ -144,9 +179,9 @@ class RegisterPatientsState extends State<RegisterPatients> {
                   _buildLastNameP(),
                   _buildLastNameM(),
                   _buildTel(),
-                  // _buildAge(),
-                  // _buildWeight(),
-                  // _buildFum(),
+                  _buildAge(),
+                  _buildWeight(),
+                  _buildFum(),
                   // _buildActive(),
                   // _buildBlood(),
                   // _buildAlergies(),
