@@ -33,7 +33,7 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ginnacle Calendar'),
+        title: Text('Calendario'),
         centerTitle: true,
       ),
       body: Column(
@@ -126,7 +126,7 @@ class _CalendarState extends State<Calendar> {
                     ),
                   ],
                 )),
-        label: Text("Añadir Citaa"),
+        label: Text("Añadir Cita"),
         icon: Icon(Icons.add),
       ),
     );

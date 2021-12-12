@@ -12,6 +12,7 @@ class Mysql {
   Future<MySqlConnection> getConnection() async {
     var settings = new ConnectionSettings(
         host: host, port: port, user: user, password: password, db: db);
-    return await MySqlConnection.connect(settings);
+
+    var conn = await MySqlConnection.connect(settings);
   }
 }
