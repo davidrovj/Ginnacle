@@ -6,6 +6,7 @@ import 'main.dart';
 import 'patients.dart';
 import 'calendar.dart';
 import 'consult.dart';
+import 'update.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -179,7 +180,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(builder: (context) => Calendar()),
+                            MaterialPageRoute(
+                                builder: (context) => UpdateRegister()),
                           );
                         },
                       ))

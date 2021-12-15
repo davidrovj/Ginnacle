@@ -1,114 +1,114 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-import 'package:mysql1/mysql1.dart';
+import 'patientsbd.dart';
+import 'db.dart';
 
-class ConsultPatient extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() {
-    return ConsultPatientState();
-  }
-}
-
-//r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+"
-
-class ConsultPatientState extends State<ConsultPatient> {
-  String _numExp;
-  var _controller = TextEditingController();
-
-  String datosPaciente = '';
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-  Widget _consultPatient() {
-    return TextFormField(
-      controller: _controller,
-      decoration: InputDecoration(labelText: 'ID del paciente'),
-      validator: (String value) {
-        if (value.isEmpty) {
-          return 'Campo obligatorio';
-        }
-      },
-      onSaved: (String value) {
-        _numExp = value;
-      },
-    );
-  }
-
-  Future _getPatient() async {
-    final conn = await MySqlConnection.connect(ConnectionSettings(
-        host: 'localhost',
-        port: 3306,
-        user: 'aruzab',
-        db: 'Ginnacle',
-        password: 'david123'));
-
-    var userId = 1;
-    var results = await conn.query(
-        'select NumExpediente from Pacientes where NumExpediente = ?',
-        [userId]);
-
-    for (var row in results) {
-      print('ID: ${row[0]}');
-    }
-
-    await conn.close();
-  }
-
-  // Future<void> _showMyDialog() async {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: true, // user must tap button!
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         title: const Text('Datos del paciente'),
-  //         content: SingleChildScrollView(
-  //           child: ListBody(
-  //             children: const <Widget>[
-  //               Text("datosPaciente"),
-  //             ],
-  //           ),
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: const Text('Approve'),
-  //             onPressed: () {
-  //               Navigator.of(context).pop();
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
+class ConsultPatient extends StatelessWidget {
+  final _formKey = GlobalKey<FormState>();
+  final numexpController = TextEditingController();
+  final nameController = TextEditingController();
+  final lastNamePController = TextEditingController();
+  final lastNameMController = TextEditingController();
+  final telController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    Patient patient = ModalRoute.of(context).settings.arguments;
+    // nameController.text = patient.name;
+    // lastNamePController.text = patient.lastNameP;
+    // lastNameMController.text = patient.lastNameM;
+
     return Scaffold(
-      appBar: AppBar(title: Text('Consultar Paciente')),
-      body: Container(
-          margin: EdgeInsets.all(24),
+        appBar: AppBar(title: Text("Guardar")),
+        body: Container(
+            child: Padding(
           child: Form(
               key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  _consultPatient(),
-                  SizedBox(height: 20),
-                  RaisedButton(
-                      child: Text(
-                        'Realizar Consulta',
-                        style: TextStyle(color: Colors.red, fontSize: 15),
-                      ),
-                      onPressed: () {
-                        _getPatient();
-                        //_showMyDialog();
-                        if (_formKey.currentState.validate()) {
-                          _controller.clear();
+              child: Column(children: <Widget>[
+                TextFormField(
+                  controller: numexpController,
+                  validator: (value) {
+                    if (value.isEmpty) return "La numexp es obligatoria";
+                  },
+                  decoration: InputDecoration(labelText: "N. Expediente"),
+                ),
+                TextFormField(
+                  controller: nameController,
+                  validator: (value) {
+                    if (value.isEmpty) return "El name es obligatorio";
+                  },
+                  onSaved: (String value) {
+                    patient.name = value;
+                    return patient.name;
+                  },
+                  decoration: InputDecoration(labelText: "Nombre(s)"),
+                ),
+                // SizedBox(
+                //   height: 20,
+                // ),
+                TextFormField(
+                  controller: lastNamePController,
+                  validator: (value) {
+                    if (value.isEmpty) return "La lastNameP es obligatoria";
+                  },
+                  onSaved: (String value) {
+                    patient.lastNameP = value;
+                    return patient.lastNameP;
+                  },
+                  decoration: InputDecoration(labelText: "Apellido Paterno"),
+                ),
+                TextFormField(
+                  controller: lastNameMController,
+                  validator: (value) {
+                    if (value.isEmpty) return "La lastNameM es obligatoria";
+                  },
+                  onSaved: (String value) {
+                    patient.lastNameM = value;
+                    return patient.lastNameM;
+                  },
+                  decoration: InputDecoration(labelText: "Apellido Materno"),
+                ),
+                TextFormField(
+                  controller: telController,
+                  validator: (value) {
+                    if (value.isEmpty) return "La tel es obligatoria";
+                  },
+                  onSaved: (String value) {
+                    patient.tel = value;
+                    return patient.tel;
+                  },
+                  decoration: InputDecoration(labelText: "Teléfono"),
+                ),
+                ElevatedButton(
+                    onPressed: () {
+                      if (_formKey.currentState.validate()) {
+                        if (patient.numExp > 0) {
+                          print(patient.name);
+                          // patient.numExp = int.parse(numexpController.text);
+                          // patient.name = nameController.text;
+                          // patient.lastNameP = lastNamePController.text;
+                          // patient.lastNameM = lastNameMController.text;
+                          // patient.tel = telController.text;
+                          DB.update(patient);
+                        } else {
+                          DB.insert(Patient(
+                              numExp: int.parse(numexpController.text),
+                              name: nameController.text,
+                              lastNameP: lastNamePController.text,
+                              lastNameM: lastNameMController.text,
+                              tel: telController.text));
+                          print("Paciente:\n" +
+                              patient.name +
+                              "," +
+                              patient.lastNameP +
+                              ", " +
+                              patient.lastNameP);
                         }
-                        _formKey.currentState.save();
-                      })
-                ],
-              ))),
-    );
+                        Navigator.pushNamed(context, "/");
+                      }
+                    },
+                    child: Text("Save"))
+              ])),
+          padding: EdgeInsets.all(15),
+        )));
   }
 }
